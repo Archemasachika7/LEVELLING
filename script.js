@@ -50,6 +50,20 @@ document.addEventListener('DOMContentLoaded', function() {
             createMagicEffect(tab);
         });
     });
+
+    // Add event listeners to all CTA buttons to redirect to auth.html
+document.querySelectorAll('.cta').forEach(button => {
+    button.addEventListener('click', () => {
+        // Add pulse effect on click
+        button.classList.add('pulse');
+        
+        // Redirect to auth.html after a short delay (for animation to complete)
+        setTimeout(() => {
+            window.location.href = 'auth.html';
+        }, 300);
+    });
+});
+
     
     // To-Do List functionality
     const todoInput = document.querySelector('.todo-input input');
