@@ -55,6 +55,56 @@
 
         <!-- Main Dashboard Content -->
         <main class="dashboard-content">
+            <!-- Active Quests Section -->
+            <section class="quests-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-scroll"></i> Active Quests</h2>
+                    <button class="view-all-btn" id="refresh-quests-btn">Refresh Quests</button>
+                </div>
+                <div class="quests-container" id="active-quests">
+                    <!-- Will be populated by JS -->
+                    <div class="quest-card">
+                        <div class="quest-header">
+                            <h3>Step Master</h3>
+                            <span class="quest-reward">+50 XP, +20 Coins</span>
+                        </div>
+                        <p class="quest-description">Complete 10,000 steps in a single day</p>
+                        <div class="quest-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span class="progress-text">6,500 / 10,000</span>
+                        </div>
+                    </div>
+                    <div class="quest-card">
+                        <div class="quest-header">
+                            <h3>Riddle Solver</h3>
+                            <span class="quest-reward">+30 XP, +15 Coins</span>
+                        </div>
+                        <p class="quest-description">Solve 5 daily riddles</p>
+                        <div class="quest-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                            <span class="progress-text">2 / 5</span>
+                        </div>
+                    </div>
+                    <div class="quest-card">
+                        <div class="quest-header">
+                            <h3>Study Champion</h3>
+                            <span class="quest-reward">+100 XP, +40 Coins</span>
+                        </div>
+                        <p class="quest-description">Complete 5 hours of study time</p>
+                        <div class="quest-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 20%"></div>
+                            </div>
+                            <span class="progress-text">1h / 5h</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Overview Section -->
             <section class="dashboard-overview">
                 <h2>Hunter Status Overview</h2>
@@ -109,10 +159,20 @@
                             </div>
                             <div class="progress-text">6,500 / 10,000</div>
                         </div>
-                        <div class="steps-input">
-                            <input type="number" id="steps-input" placeholder="Enter steps">
-                            <input type="date" id="steps-date" value="2025-05-13">
-                            <button id="update-steps">Add Steps</button>
+                        <button class="action-button-sm" id="add-steps-btn"><i class="fas fa-plus"></i> Add Steps</button>
+                        <div class="input-form hidden" id="steps-form">
+                            <div class="steps-input">
+                                <input type="number" id="steps-input" placeholder="Enter steps">
+                                <input type="date" id="steps-date" value="2025-05-13">
+                                <button id="update-steps">Save</button>
+                                <button id="cancel-steps" class="cancel-btn">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="steps-history">
+                            <h4>Recent Steps History</h4>
+                            <ul id="steps-history-list">
+                                <!-- Will be populated by JS -->
+                            </ul>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -166,11 +226,19 @@
                             <button id="add-exam-btn" class="small-btn"><i class="fas fa-plus"></i> Add Exam</button>
                         </div>
                         <canvas id="exam-progress-chart"></canvas>
-                        <div class="test-input hidden" id="test-input-form">
-                            <input type="text" id="test-name" placeholder="Test name">
-                            <input type="number" id="test-score" placeholder="Score">
-                            <button id="save-test-btn">Save</button>
-                            <button id="cancel-test-btn">Cancel</button>
+                        <div class="input-form hidden" id="test-input-form">
+                            <div class="test-input">
+                                <input type="text" id="test-name" placeholder="Test name">
+                                <input type="number" id="test-score" placeholder="Score">
+                                <button id="save-test-btn">Save</button>
+                                <button id="cancel-test-btn" class="cancel-btn">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="exam-history">
+                            <h4>Recent Exam Scores</h4>
+                            <ul id="exam-history-list">
+                                <!-- Will be populated by JS -->
+                            </ul>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -231,9 +299,17 @@
                 </div>
                 <div class="section-content">
                     <div class="stat-card riddle-card">
-                        <h3>Daily Riddle</h3>
+                        <h3>Daily Riddle <span class="riddle-counter">(2/5 today)</span></h3>
                         <div class="riddle-content">
                             <p id="riddle-question">What has keys but no locks, space but no room, and you can enter but not go in?</p>
+                            <div class="riddle-answer-form">
+                                <input type="text" id="riddle-answer-input" placeholder="Enter your answer...">
+                                <button id="submit-riddle-answer">Submit</button>
+                            </div>
+                            <div class="riddle-result hidden" id="riddle-result">
+                                <p class="result-message">Correct! +10 XP, +5 Coins</p>
+                                <button id="next-riddle-btn">Next Riddle</button>
+                            </div>
                             <button id="riddle-answer-btn">Reveal Answer</button>
                             <p id="riddle-answer" class="hidden">A keyboard</p>
                         </div>
@@ -244,6 +320,9 @@
                             <p id="anime-quote">"If you don't like your destiny, don't accept it. Instead, have the courage to change it the way you want it to be."</p>
                             <p id="quote-author">- Naruto Uzumaki</p>
                         </div>
+                        <button id="refresh-quote" class="action-button-sm">
+                            <i class="fas fa-sync-alt"></i> New Quote
+                        </button>
                     </div>
                     <div class="stat-card">
                         <h3>Coding Tasks</h3>
@@ -350,6 +429,17 @@
                         <p>Reminder: "Complete GRE Practice Test" is due tomorrow</p>
                         <span class="notification-time">Yesterday</span>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reward Animation -->
+        <div class="reward-animation hidden" id="reward-animation">
+            <div class="reward-content">
+                <div class="reward-icon"><i class="fas fa-award"></i></div>
+                <div class="reward-text">
+                    <h3>Quest Completed!</h3>
+                    <p id="reward-details">+50 XP, +20 Coins</p>
                 </div>
             </div>
         </div>
