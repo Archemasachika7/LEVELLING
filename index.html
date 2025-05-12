@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levelling - Gamified Personal Growth</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">LEVELLING</div>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="login-btn">Login</button>
+            <button class="signup-btn">Sign Up</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>ARISE: Transform Your Life with Levelling</h1>
+            <p>Level up your Health, Knowledge, Goals, and more in a gamified system inspired by Solo Levelling.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-name">Health</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 70%"></div>
+                    </div>
+                    <span class="stat-level">Level 7</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-name">Knowledge</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%"></div>
+                    </div>
+                    <span class="stat-level">Level 12</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-name">Coding</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 60%"></div>
+                    </div>
+                    <span class="stat-level">Level 8</span>
+                </div>
+            </div>
+            <button class="cta">Begin Your Journey</button>
+        </div>
+        <div class="hero-image">
+            <div class="character-avatar">
+                <div class="glow-effect"></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="features">
+        <h2>Level Up Every Aspect of Your Life</h2>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <i class="fas fa-tasks"></i>
+                <h3>To-Do List</h3>
+                <p>Organize your daily tasks and level up as you complete them. Earn XP for each completed task.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-project-diagram"></i>
+                <h3>Projects Tracker</h3>
+                <p>Keep track of your projects and milestones with ease. Visualize progress and deadlines.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-fire"></i>
+                <h3>Heatmaps</h3>
+                <p>Visualize your productivity and progress over time with beautiful, interactive heatmaps.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-code"></i>
+                <h3>Coding Assignment Tracker</h3>
+                <p>Track your coding assignments and improve your skills with built-in reminders and progress tracking.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-robot"></i>
+                <h3>AI Chatbot</h3>
+                <p>Get instant help and motivation from your personal AI assistant. Ask questions anytime.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-book"></i>
+                <h3>Resources</h3>
+                <p>Access curated learning materials and coding resources to accelerate your growth.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo">
+        <h2>See Levelling in Action</h2>
+        <div class="demo-container">
+            <div class="demo-tabs">
+                <button class="demo-tab active" data-tab="todo">To-Do List</button>
+                <button class="demo-tab" data-tab="projects">Projects</button>
+                <button class="demo-tab" data-tab="coding">Coding</button>
+                <button class="demo-tab" data-tab="chatbot">AI Chatbot</button>
+            </div>
+            <div class="demo-content">
+                <div class="demo-panel active" id="todo-panel">
+                    <h3>Task Management System</h3>
+                    <div class="todo-demo">
+                        <div class="todo-input">
+                            <input type="text" placeholder="Add a new task...">
+                            <button>Add Task</button>
+                        </div>
+                        <ul class="todo-list">
+                            <li class="completed">Complete landing page design <span class="xp">+10 XP</span></li>
+                            <li>Study for algorithms exam <span class="xp">+15 XP</span></li>
+                            <li>Workout for 30 minutes <span class="xp">+5 XP</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="demo-panel" id="projects-panel">
+                    <h3>Project Tracking</h3>
+                    <!-- Projects content -->
+                </div>
+                <div class="demo-panel" id="coding-panel">
+                    <h3>Coding Assignments</h3>
+                    <!-- Coding content -->
+                </div>
+                <div class="demo-panel" id="chatbot-panel">
+                    <h3>AI Assistant</h3>
+                    <!-- Chatbot content -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <h2>Fellow Hunters' Experiences</h2>
+        <div class="testimonial-cards">
+            <div class="testimonial-card">
+                <div class="user-level">Level 17</div>
+                <p>"I've gone from Level 3 to Level 17 in my Fitness stat in just three months. The daily quests keep me motivated!"</p>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <div class="user-name">Alex K.</div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="user-level">Level 22</div>
+                <p>"The Academic levelling system helped me stay on track during finals. My GPA levelled up too!"</p>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <div class="user-name">Jamie T.</div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="user-level">Level 19</div>
+                <p>"The coding assignment tracker has been a game-changer for my programming journey. I've completed twice as many projects!"</p>
+                <div class="user-info">
+                    <div class="user-avatar"></div>
+                    <div class="user-name">Sam L.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <h2>Choose Your Hunter Rank</h2>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>E-Rank Hunter</h3>
+                <div class="price">Free</div>
+                <ul>
+                    <li>Basic To-Do List</li>
+                    <li>Limited Project Tracking</li>
+                    <li>Basic Stats</li>
+                    <li>Community Access</li>
+                </ul>
+                <button class="pricing-cta">Start Free</button>
+            </div>
+            <div class="pricing-card featured">
+                <div class="popular-tag">Most Popular</div>
+                <h3>S-Rank Hunter</h3>
+                <div class="price">$9.99<span>/month</span></div>
+                <ul>
+                    <li>Advanced To-Do System</li>
+                    <li>Unlimited Projects</li>
+                    <li>Full Heatmap Analytics</li>
+                    <li>AI Chatbot Assistant</li>
+                    <li>Coding Assignment Tracker</li>
+                    <li>Premium Resources</li>
+                </ul>
+                <button class="pricing-cta">Level Up Now</button>
+            </div>
+            <div class="pricing-card">
+                <h3>National Level Hunter</h3>
+                <div class="price">$19.99<span>/month</span></div>
+                <ul>
+                    <li>Everything in S-Rank</li>
+                    <li>Team Collaboration</li>
+                    <li>Advanced AI Features</li>
+                    <li>Priority Support</li>
+                    <li>Custom Stat Tracking</li>
+                </ul>
+                <button class="pricing-cta">Become Elite</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="cta-section">
+        <h2>Ready to Level Up Your Life?</h2>
+        <p>Join 10,000+ hunters already on their journey to greatness</p>
+        <button class="cta">ARISE AND BEGIN YOUR JOURNEY</button>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">LEVELLING</div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Features</h4>
+                    <ul>
+                        <li><a href="#">To-Do List</a></li>
+                        <li><a href="#">Projects Tracker</a></li>
+                        <li><a href="#">Heatmaps</a></li>
+                        <li><a href="#">Coding Tracker</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Levelling. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
