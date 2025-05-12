@@ -171,6 +171,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid var(--electric-blue);
+    cursor: pointer;
 }
 
 .profile-avatar img {
@@ -191,6 +192,17 @@ h1, h2, h3, h4, h5, h6 {
 .rank {
     font-size: 0.8rem;
     color: var(--electric-blue);
+}
+
+.logout-btn {
+    cursor: pointer;
+    color: var(--silver);
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: var(--blood-red);
 }
 
 /* Main Dashboard Content */
@@ -378,6 +390,39 @@ h1, h2, h3, h4, h5, h6 {
     color: #aaa;
 }
 
+/* Steps Input */
+.steps-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.steps-input input {
+    flex: 1;
+    min-width: 100px;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--card-border);
+    border-radius: 5px;
+    color: #fff;
+}
+
+.steps-input button {
+    background-color: var(--physical-accent);
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.steps-input button:hover {
+    background-color: #00d489;
+    box-shadow: 0 0 10px var(--physical-accent);
+}
+
 /* Heart Rate Display */
 .heart-rate-display {
     display: flex;
@@ -446,19 +491,189 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 10px var(--blood-red);
 }
 
+/* Water Container */
+.water-container {
+    height: 200px;
+    width: 100px;
+    margin: 20px auto;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.water-level {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.water-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, var(--electric-blue), rgba(0, 196, 255, 0.5));
+    transition: height 0.5s ease;
+    border-radius: 0 0 50px 50px;
+}
+
+.water-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white-glow);
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(-25%) translateY(10%) rotate(0deg);
+    }
+    50% {
+        transform: translateX(-25%) translateY(10%) rotate(180deg);
+    }
+    100% {
+        transform: translateX(-25%) translateY(10%) rotate(360deg);
+    }
+}
+
+.water-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.water-controls button {
+    flex: 1;
+    padding: 8px;
+    background-color: var(--electric-blue);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.water-controls button:hover {
+    background-color: var(--cyan-glow);
+    box-shadow: 0 0 10px var(--electric-blue);
+}
+
 /* Exam Selector */
 .exam-selector {
     margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .exam-selector select {
-    width: 100%;
+    flex: 1;
     padding: 10px;
     background-color: rgba(15, 15, 15, 0.7);
     border: 1px solid var(--academic-accent);
     border-radius: 5px;
     color: #fff;
     font-family: 'Exo 2', sans-serif;
+}
+
+.small-btn {
+    background-color: var(--academic-accent);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.small-btn:hover {
+    background-color: #7c52ff;
+    box-shadow: 0 0 10px var(--academic-accent);
+}
+
+/* Test Input Form */
+.test-input {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.test-input input {
+    flex: 1;
+    min-width: 100px;
+    padding: 10px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border: 1px solid var(--academic-accent);
+    border-radius: 5px;
+    color: #fff;
+}
+
+.test-input button {
+    padding: 10px 15px;
+    background-color: var(--academic-accent);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.test-input button:hover {
+    background-color: #7c52ff;
+    box-shadow: 0 0 10px var(--academic-accent);
+}
+
+/* Timer Settings */
+.timer-settings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.timer-input {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 100px;
+}
+
+.timer-input label {
+    margin-bottom: 5px;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.timer-input input {
+    padding: 8px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border: 1px solid var(--academic-accent);
+    border-radius: 5px;
+    color: #fff;
+}
+
+#apply-timer {
+    align-self: flex-end;
+    padding: 8px 15px;
+    background-color: var(--academic-accent);
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+#apply-timer:hover {
+    background-color: #7c52ff;
+    box-shadow: 0 0 10px var(--academic-accent);
 }
 
 /* Pomodoro Timer */
@@ -500,6 +715,151 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 15px var(--academic-accent);
 }
 
+/* Subject Time Tracking */
+.subject-time-tracking {
+    margin-top: 30px;
+}
+
+.subject-time-tracking h4 {
+    margin-bottom: 15px;
+    color: #aaa;
+    font-size: 1rem;
+}
+
+.subject-time-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.subject-time-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border-radius: 5px;
+}
+
+.subject-name {
+    font-weight: bold;
+}
+
+.subject-time {
+    color: var(--academic-accent);
+}
+
+.empty-message {
+    color: #aaa;
+    font-style: italic;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Academic Goals */
+.academic-goals {
+    margin-top: 15px;
+}
+
+.goal-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.goal-input input {
+    flex: 1;
+    padding: 10px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border: 1px solid var(--academic-accent);
+    border-radius: 5px;
+    color: #fff;
+}
+
+.goal-input button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--academic-accent);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.goal-input button:hover {
+    background-color: #7c52ff;
+    box-shadow: 0 0 10px var(--academic-accent);
+}
+
+.goals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.goal-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border-radius: 5px;
+}
+
+.goal-item.completed .goal-text {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+.goal-checkbox {
+    position: relative;
+}
+
+.goal-checkbox input {
+    opacity: 0;
+    position: absolute;
+}
+
+.goal-checkbox label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--academic-accent);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+}
+
+.goal-checkbox input:checked + label::after {
+    content: '\2714';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--academic-accent);
+    font-size: 14px;
+}
+
+.goal-text {
+    flex: 1;
+}
+
+.delete-goal {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.delete-goal:hover {
+    color: var(--blood-red);
+}
+
 /* Action Button */
 .action-button {
     display: flex;
@@ -522,6 +882,254 @@ h1, h2, h3, h4, h5, h6 {
 .action-button:hover {
     background-color: #7c52ff;
     box-shadow: 0 0 15px var(--academic-accent);
+}
+
+/* Coding Tasks */
+.coding-task-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.coding-task-input input {
+    padding: 10px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border: 1px solid var(--knowledge-accent);
+    border-radius: 5px;
+    color: #fff;
+}
+
+.coding-task-input input:first-child {
+    flex: 2;
+}
+
+.coding-task-input input:nth-child(2) {
+    flex: 1;
+    min-width: 80px;
+}
+
+.coding-task-input button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--knowledge-accent);
+    color: #000;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.coding-task-input button:hover {
+    background-color: #ffe44d;
+    box-shadow: 0 0 10px var(--knowledge-accent);
+}
+
+.coding-tasks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.coding-task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border-radius: 5px;
+}
+
+.task-info {
+    flex: 1;
+}
+
+.task-text {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.task-time {
+    color: var(--knowledge-accent);
+    font-size: 0.9rem;
+}
+
+.task-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.task-actions button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255, 215, 0, 0.2);
+    color: var(--knowledge-accent);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.task-actions button:hover {
+    background-color: var(--knowledge-accent);
+    color: #000;
+}
+
+.task-actions .delete-task:hover {
+    background-color: var(--blood-red);
+    color: #fff;
+}
+
+/* Project Tracker */
+.add-project {
+    margin-bottom: 15px;
+}
+
+.add-project button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 215, 0, 0.2);
+    border: 1px solid var(--knowledge-accent);
+    border-radius: 5px;
+    color: var(--knowledge-accent);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.add-project button:hover {
+    background-color: var(--knowledge-accent);
+    color: #000;
+}
+
+.project-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.project-form input {
+    flex: 1;
+    min-width: 150px;
+    padding: 10px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border: 1px solid var(--knowledge-accent);
+    border-radius: 5px;
+    color: #fff;
+}
+
+.project-form button {
+    padding: 10px 15px;
+    background-color: var(--knowledge-accent);
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.project-form button:hover {
+    background-color: #ffe44d;
+    box-shadow: 0 0 10px var(--knowledge-accent);
+}
+
+.project-form button:last-child {
+    background-color: transparent;
+    border: 1px solid var(--knowledge-accent);
+    color: var(--knowledge-accent);
+}
+
+.project-form button:last-child:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.project-item {
+    padding: 15px;
+    background-color: rgba(15, 15, 15, 0.7);
+    border-radius: 5px;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.project-header h4 {
+    font-size: 1.1rem;
+}
+
+.days-left {
+    color: var(--knowledge-accent);
+    font-size: 0.9rem;
+}
+
+.project-progress {
+    margin-bottom: 15px;
+}
+
+.project-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.progress-slider {
+    flex: 1;
+    height: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    outline: none;
+}
+
+.progress-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--knowledge-accent);
+    cursor: pointer;
+}
+
+.progress-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--knowledge-accent);
+    cursor: pointer;
+    border: none;
+}
+
+.delete-project {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.delete-project:hover {
+    color: var(--blood-red);
 }
 
 /* Riddle Card */
