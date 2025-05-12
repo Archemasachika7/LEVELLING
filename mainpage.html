@@ -40,12 +40,15 @@
                     <i class="fas fa-bell"></i>
                     <span class="notification-badge">3</span>
                 </div>
-                <div class="profile-avatar">
+                <div class="profile-avatar" id="profile-btn">
                     <img src="https://example.com/avatar.jpg" alt="Hunter Avatar">
                 </div>
                 <div class="profile-info">
                     <span class="username">Shadow Hunter</span>
                     <span class="rank">S-Rank</span>
+                </div>
+                <div class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
                 </div>
             </div>
         </header>
@@ -106,6 +109,11 @@
                             </div>
                             <div class="progress-text">6,500 / 10,000</div>
                         </div>
+                        <div class="steps-input">
+                            <input type="number" id="steps-input" placeholder="Enter steps">
+                            <input type="date" id="steps-date" value="2025-05-13">
+                            <button id="update-steps">Add Steps</button>
+                        </div>
                     </div>
                     <div class="stat-card">
                         <h3>Heart Rate</h3>
@@ -118,6 +126,19 @@
                         <div class="heart-rate-input">
                             <input type="number" id="heart-rate" placeholder="Update BPM">
                             <button id="update-heart-rate">Update</button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Water Intake</h3>
+                        <div class="water-container">
+                            <div class="water-level">
+                                <div class="water-fill" style="height: 40%"></div>
+                                <div class="water-text">4 / 10 glasses</div>
+                            </div>
+                        </div>
+                        <div class="water-controls">
+                            <button id="add-water"><i class="fas fa-plus"></i> Add Glass</button>
+                            <button id="reset-water"><i class="fas fa-redo"></i> Reset</button>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -142,11 +163,29 @@
                                 <option value="gmat">GMAT</option>
                                 <option value="gate">GATE</option>
                             </select>
+                            <button id="add-exam-btn" class="small-btn"><i class="fas fa-plus"></i> Add Exam</button>
                         </div>
                         <canvas id="exam-progress-chart"></canvas>
+                        <div class="test-input hidden" id="test-input-form">
+                            <input type="text" id="test-name" placeholder="Test name">
+                            <input type="number" id="test-score" placeholder="Score">
+                            <button id="save-test-btn">Save</button>
+                            <button id="cancel-test-btn">Cancel</button>
+                        </div>
                     </div>
                     <div class="stat-card">
                         <h3>Study Timer</h3>
+                        <div class="timer-settings">
+                            <div class="timer-input">
+                                <label for="timer-minutes">Minutes:</label>
+                                <input type="number" id="timer-minutes" value="25" min="1" max="120">
+                            </div>
+                            <div class="timer-input">
+                                <label for="timer-subject">Subject:</label>
+                                <input type="text" id="timer-subject" placeholder="e.g., Math">
+                            </div>
+                            <button id="apply-timer">Apply</button>
+                        </div>
                         <div class="pomodoro-timer">
                             <div class="timer-display">25:00</div>
                             <div class="timer-controls">
@@ -154,6 +193,24 @@
                                 <button id="timer-pause"><i class="fas fa-pause"></i></button>
                                 <button id="timer-reset"><i class="fas fa-redo"></i></button>
                             </div>
+                        </div>
+                        <div class="subject-time-tracking">
+                            <h4>Today's Study Time</h4>
+                            <div class="subject-time-list" id="subject-time-list">
+                                <!-- Will be populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Weekly Academic Goals</h3>
+                        <div class="academic-goals">
+                            <div class="goal-input">
+                                <input type="text" id="goal-text" placeholder="Add a new goal...">
+                                <button id="add-goal"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <ul class="goals-list" id="academic-goals-list">
+                                <!-- Will be populated by JS -->
+                            </ul>
                         </div>
                     </div>
                     <div class="stat-card">
@@ -186,6 +243,34 @@
                         <div class="quote-content">
                             <p id="anime-quote">"If you don't like your destiny, don't accept it. Instead, have the courage to change it the way you want it to be."</p>
                             <p id="quote-author">- Naruto Uzumaki</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Coding Tasks</h3>
+                        <div class="coding-task-input">
+                            <input type="text" id="coding-task" placeholder="Add coding task...">
+                            <input type="number" id="coding-time" placeholder="Minutes" min="15" max="240" value="60">
+                            <button id="add-coding-task"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <ul class="coding-tasks-list" id="coding-tasks-list">
+                            <!-- Will be populated by JS -->
+                        </ul>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Project Tracker</h3>
+                        <div class="projects-container" id="projects-container">
+                            <div class="add-project">
+                                <button id="add-project-btn"><i class="fas fa-plus"></i> Add Project</button>
+                            </div>
+                            <div class="projects-list" id="projects-list">
+                                <!-- Will be populated by JS -->
+                            </div>
+                            <div class="project-form hidden" id="project-form">
+                                <input type="text" id="project-name" placeholder="Project name">
+                                <input type="date" id="project-deadline">
+                                <button id="save-project">Save</button>
+                                <button id="cancel-project">Cancel</button>
+                            </div>
                         </div>
                     </div>
                     <div class="stat-card coding-card">
