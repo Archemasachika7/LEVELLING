@@ -690,7 +690,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // AI Chatbot Functionality
+    // AI Chatbot Functionality with Gemini
     initializeChatbot();
     
     function initializeChatbot() {
@@ -699,6 +699,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const chatMessages = document.querySelector('.chatbot-messages');
         
         if (!chatInput || !chatSendBtn || !chatMessages) return;
+        
+        // Gemini API key
+        const GEMINI_API_KEY = "AIzaSyCGnyt0WVJRq11zowUT_NoFuoHhJwimTTE";
         
         chatSendBtn.addEventListener('click', sendMessage);
         chatInput.addEventListener('keypress', (e) => {
@@ -723,20 +726,51 @@ document.addEventListener('DOMContentLoaded', function() {
             chatMessages.scrollTop = chatMessages.scrollHeight;
             
             try {
-                // In a real implementation, this would call OpenAI or another AI service
-                // For demo purposes, we'll use a simple response system
-                setTimeout(() => {
-                    // Remove typing indicator
-                    chatMessages.removeChild(typingIndicator);
-                    
-                    // Get AI response
-                    const response = getAIResponse(message);
-                    addMessage(response, 'bot');
-                }, 1000);
+                // Call Gemini API
+                const response = await fetchGeminiResponse(message);
+                
+                // Remove typing indicator
+                chatMessages.removeChild(typingIndicator);
+                
+                // Add AI response to chat
+                addMessage(response, 'bot');
             } catch (error) {
                 console.error('Error getting AI response:', error);
                 chatMessages.removeChild(typingIndicator);
                 addMessage("I'm having trouble connecting to my knowledge base. Please try again later.", 'bot');
+            }
+        }
+        
+        async function fetchGeminiResponse(prompt) {
+            // Create a context-aware prompt for the Levelling app
+            const contextPrompt = `You are an AI assistant for a gamified self-improvement app called "Levelling" inspired by Solo Levelling. 
+            The app helps users track their progress in physical health, academic studies, and knowledge/coding skills.
+            Please respond to the following user query in a helpful, concise manner with a Solo Levelling theme: ${prompt}`;
+            
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: contextPrompt
+                            }]
+                        }]
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                return "I apologize, Hunter. I'm having trouble accessing my knowledge base. Please try again later.";
             }
         }
         
@@ -747,31 +781,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        function getAIResponse(message) {
-            // Simple keyword-based responses
-            message = message.toLowerCase();
-            
-            if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
-                return "Greetings, Hunter. How may I assist you today?";
-            } else if (message.includes('help')) {
-                return "I can help you with tracking your progress, setting goals, or providing information about your levelling journey. What specifically do you need assistance with?";
-            } else if (message.includes('level') || message.includes('xp')) {
-                return "Your current level is shown at the top of the dashboard. Complete tasks and quests to earn XP and level up. Each level requires more XP than the previous one.";
-            } else if (message.includes('quest') || message.includes('task')) {
-                return "You currently have active quests in your dashboard. Complete them to earn XP and coins. You can also create custom quests in the Quests section.";
-            } else if (message.includes('health') || message.includes('physical')) {
-                return "The Physical Levelling section tracks your health metrics like steps and heart rate. You can update these manually or connect fitness devices for automatic tracking.";
-            } else if (message.includes('study') || message.includes('academic') || message.includes('exam')) {
-                return "The Academic Levelling section helps you track your study progress and exam scores. Use the Pomodoro timer for focused study sessions and generate AI mock tests to practice.";
-            } else if (message.includes('code') || message.includes('coding') || message.includes('programming')) {
-                return "The Coding Arena provides daily challenges to improve your programming skills. Your activity is tracked in the heatmap, showing your consistency over time.";
-            } else if (message.includes('thank')) {
-                return "You're welcome, Hunter. Is there anything else you need assistance with?";
-            } else {
-                return "I understand you're asking about " + message.split(' ').slice(0, 3).join(' ') + "... To give you the best guidance, could you provide more specific details about what you're looking for?";
-            }
         }
     }
     
