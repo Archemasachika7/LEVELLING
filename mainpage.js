@@ -63,6 +63,30 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.rank').textContent = userData.hunterRank || "E-Rank";
     }
     
+    // Setup profile and logout buttons
+    const profileBtn = document.querySelector('.profile-avatar');
+    const logoutBtn = document.querySelector('.logout-btn');
+    
+    if (profileBtn) {
+        profileBtn.addEventListener('click', () => {
+            window.location.href = 'profile.html';
+        });
+    }
+    
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to log out?')) {
+                auth.signOut()
+                    .then(() => {
+                        window.location.href = 'auth.html';
+                    })
+                    .catch((error) => {
+                        console.error('Error signing out:', error);
+                    });
+            }
+        });
+    }
+    
     // Create particles for background
     createParticles(document.getElementById('particles'), 50);
     
@@ -813,21 +837,5 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update steps every 30 seconds
         setInterval(updateStepsProgress, 30000);
-    }
-    
-    // Logout functionality
-    const logoutBtn = document.querySelector('.profile-avatar');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to log out?')) {
-                auth.signOut()
-                    .then(() => {
-                        window.location.href = 'auth.html';
-                    })
-                    .catch((error) => {
-                        console.error('Error signing out:', error);
-                    });
-            }
-        });
     }
 });
