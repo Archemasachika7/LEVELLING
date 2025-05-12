@@ -404,11 +404,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         try {
             // Fetch riddle from API
-            const response = await fetch('https://api.api-ninjas.com/v1/riddles', {
-                headers: {
-                    'X-Api-Key': 'YOUR_API_NINJAS_KEY' // Replace with your actual API key
-                }
-            });
+        const response = await fetch('https://api.api-ninjas.com/v1/riddles', {
+         headers: {
+          'X-Api-Key': 'YARUJ7lJtJtL0FA8jMf/xg==Cevt0to8stuhygF7'
+          }
+          });
+
             
             if (response.ok) {
                 const data = await response.json();
