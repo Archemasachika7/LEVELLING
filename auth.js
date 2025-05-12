@@ -1,13 +1,14 @@
 // Initialize Firebase
 document.addEventListener('DOMContentLoaded', function() {
-    // Firebase configuration - Replace with your Firebase project config
+    // Firebase configuration
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID"
+        apiKey: "AIzaSyDH6yvK6WMn5VlmH5oH1LHIMKhKjPm1Efw",
+        authDomain: "levelling-87152.firebaseapp.com",
+        projectId: "levelling-87152",
+        storageBucket: "levelling-87152.firebasestorage.app",
+        messagingSenderId: "640073491806",
+        appId: "1:640073491806:web:88f9b8c6e9d32ef4145bcf",
+        measurementId: "G-H02RVJMFQW"
     };
     
     // Initialize Firebase
@@ -117,9 +118,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 showToast('Dungeon Access Granted');
                 successSound.play();
                 
-                // Redirect to dashboard after a delay
+                // Redirect to mainpage after a delay
                 setTimeout(() => {
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'mainpage.html';
                 }, 1500);
             })
             .catch(error => {
@@ -190,9 +191,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     showToast('Hunter Registration Complete');
                     successSound.play();
                     
-                    // Redirect to dashboard after a delay
+                    // Redirect to mainpage after a delay
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'mainpage.html';
                     }, 1500);
                 });
             })
@@ -240,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         successSound.play();
                         
                         setTimeout(() => {
-                            window.location.href = 'dashboard.html';
+                            window.location.href = 'mainpage.html';
                         }, 1500);
                     });
                 } else {
@@ -249,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     successSound.play();
                     
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html';
+                        window.location.href = 'mainpage.html';
                     }, 1500);
                 }
             })
@@ -302,8 +303,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // User is signed in, check if they're coming from a redirect
             const isRedirected = sessionStorage.getItem('isRedirected');
             if (!isRedirected) {
-                // Redirect to dashboard
-                window.location.href = 'dashboard.html';
+                // Redirect to mainpage
+                window.location.href = 'mainpage.html';
             }
         } else {
             // User is signed out
