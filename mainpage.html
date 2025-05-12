@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levelling - Hunter Dashboard</title>
+    <link rel="stylesheet" href="mainpage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Day.js for date handling -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.7/dayjs.min.js"></script>
+</head>
+<body>
+    <div class="particles-container">
+        <div id="particles"></div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <header class="dashboard-header">
+            <div class="logo">LEVELLING</div>
+            <div class="user-stats">
+                <div class="stat">
+                    <i class="fas fa-star"></i>
+                    <span id="user-level">Level 7</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-bolt"></i>
+                    <span id="user-xp">350/500 XP</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-coins"></i>
+                    <span id="user-coins">750</span>
+                </div>
+            </div>
+            <div class="user-profile">
+                <div class="notification-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </div>
+                <div class="profile-avatar">
+                    <img src="https://example.com/avatar.jpg" alt="Hunter Avatar">
+                </div>
+                <div class="profile-info">
+                    <span class="username">Shadow Hunter</span>
+                    <span class="rank">S-Rank</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-content">
+            <!-- Overview Section -->
+            <section class="dashboard-overview">
+                <h2>Hunter Status Overview</h2>
+                <div class="overview-cards">
+                    <div class="overview-card">
+                        <div class="card-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="card-content">
+                            <h3>Pending Tasks</h3>
+                            <p class="card-value">7</p>
+                            <p class="card-subtitle">This Week</p>
+                        </div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="card-content">
+                            <h3>Active Quests</h3>
+                            <p class="card-value">3</p>
+                            <p class="card-subtitle">2 High Priority</p>
+                        </div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon"><i class="fas fa-coins"></i></div>
+                        <div class="card-content">
+                            <h3>Coins Earned</h3>
+                            <p class="card-value">120</p>
+                            <p class="card-subtitle">Today</p>
+                        </div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="card-content">
+                            <h3>XP Gained</h3>
+                            <p class="card-value">350</p>
+                            <p class="card-subtitle">This Week</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Physical Levelling Section -->
+            <section class="levelling-section physical-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-heartbeat"></i> Physical Levelling</h2>
+                    <button class="view-all-btn" onclick="location.href='physical.html'">View Detailed Metrics</button>
+                </div>
+                <div class="section-content">
+                    <div class="stat-card">
+                        <h3>Daily Steps</h3>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="steps-progress">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <div class="progress-text">6,500 / 10,000</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Heart Rate</h3>
+                        <div class="heart-rate-display">
+                            <div class="heart-icon pulsing">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="heart-rate-value">72 BPM</div>
+                        </div>
+                        <div class="heart-rate-input">
+                            <input type="number" id="heart-rate" placeholder="Update BPM">
+                            <button id="update-heart-rate">Update</button>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Weekly Activity</h3>
+                        <canvas id="physical-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Academic Levelling Section -->
+            <section class="levelling-section academic-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-graduation-cap"></i> Academic Levelling</h2>
+                    <button class="view-all-btn" onclick="location.href='academic.html'">View All Resources</button>
+                </div>
+                <div class="section-content">
+                    <div class="stat-card">
+                        <h3>Exam Progress</h3>
+                        <div class="exam-selector">
+                            <select id="exam-select">
+                                <option value="gre">GRE</option>
+                                <option value="gmat">GMAT</option>
+                                <option value="gate">GATE</option>
+                            </select>
+                        </div>
+                        <canvas id="exam-progress-chart"></canvas>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Study Timer</h3>
+                        <div class="pomodoro-timer">
+                            <div class="timer-display">25:00</div>
+                            <div class="timer-controls">
+                                <button id="timer-start"><i class="fas fa-play"></i></button>
+                                <button id="timer-pause"><i class="fas fa-pause"></i></button>
+                                <button id="timer-reset"><i class="fas fa-redo"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>AI Mock Tests</h3>
+                        <p>Generate practice questions for your exams</p>
+                        <button id="generate-mock-test" class="action-button">
+                            <i class="fas fa-robot"></i> Generate Mock Test
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Knowledge Levelling Section -->
+            <section class="levelling-section knowledge-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-brain"></i> Knowledge Levelling</h2>
+                    <button class="view-all-btn" onclick="location.href='knowledge.html'">View All Resources</button>
+                </div>
+                <div class="section-content">
+                    <div class="stat-card riddle-card">
+                        <h3>Daily Riddle</h3>
+                        <div class="riddle-content">
+                            <p id="riddle-question">What has keys but no locks, space but no room, and you can enter but not go in?</p>
+                            <button id="riddle-answer-btn">Reveal Answer</button>
+                            <p id="riddle-answer" class="hidden">A keyboard</p>
+                        </div>
+                    </div>
+                    <div class="stat-card quote-card">
+                        <h3>Anime Motivation</h3>
+                        <div class="quote-content">
+                            <p id="anime-quote">"If you don't like your destiny, don't accept it. Instead, have the courage to change it the way you want it to be."</p>
+                            <p id="quote-author">- Naruto Uzumaki</p>
+                        </div>
+                    </div>
+                    <div class="stat-card coding-card">
+                        <h3>Coding Arena</h3>
+                        <div class="coding-heatmap" id="coding-heatmap">
+                            <!-- Heatmap cells will be generated by JS -->
+                        </div>
+                        <div class="coding-challenge">
+                            <h4>Daily Challenge:</h4>
+                            <p id="challenge-title">Two Sum</p>
+                            <span class="difficulty easy">Easy</span>
+                            <button class="action-button" onclick="location.href='coding.html'">
+                                <i class="fas fa-code"></i> Solve Challenge
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calendar Section -->
+            <section class="calendar-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Year Progress</h2>
+                </div>
+                <div class="year-calendar" id="year-calendar">
+                    <!-- Calendar cells will be generated by JS -->
+                </div>
+            </section>
+        </main>
+
+        <!-- AI Chatbot -->
+        <div class="ai-chatbot">
+            <div class="chatbot-toggle">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="chatbot-container hidden">
+                <div class="chatbot-header">
+                    <h3>AI Assistant</h3>
+                    <button class="close-chat"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="chatbot-messages">
+                    <div class="message bot">
+                        <p>Greetings, Hunter. How may I assist your levelling journey today?</p>
+                    </div>
+                </div>
+                <div class="chatbot-input">
+                    <input type="text" placeholder="Ask anything...">
+                    <button><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Panel -->
+        <div class="notifications-panel hidden">
+            <div class="notifications-header">
+                <h3>Notifications</h3>
+                <button class="close-notifications"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="notifications-list">
+                <div class="notification-item unread">
+                    <div class="notification-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="notification-content">
+                        <p>You've completed the "10-Day Coding Streak" quest!</p>
+                        <span class="notification-time">2 hours ago</span>
+                    </div>
+                </div>
+                <div class="notification-item unread">
+                    <div class="notification-icon"><i class="fas fa-level-up-alt"></i></div>
+                    <div class="notification-content">
+                        <p>Congratulations! Your Physical Level increased to 8!</p>
+                        <span class="notification-time">Yesterday</span>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <div class="notification-content">
+                        <p>Reminder: "Complete GRE Practice Test" is due tomorrow</p>
+                        <span class="notification-time">Yesterday</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Main JS -->
+    <script src="mainpage.js"></script>
+</body>
+</html>
