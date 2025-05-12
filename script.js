@@ -1,10 +1,33 @@
 // Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu functionality
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const authButtons = document.querySelector('.auth-buttons');
+    
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            authButtons.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+    }
+    
     // Create particles for background
     createParticles(document.body, 50);
     
     // Initialize parallax effect
     initParallax();
+    
+    // Add glowing border effect to cards
+    document.querySelectorAll('.flip-card, .testimonial-card, .demo-container').forEach(card => {
+        card.classList.add('glow-border');
+    });
+    
+    // Add floating animation to select elements
+    document.querySelectorAll('.hero h1, .cta, .user-level').forEach(el => {
+        el.classList.add('float');
+    });
     
     // Demo tabs functionality
     const demoTabs = document.querySelectorAll('.demo-tab');
@@ -168,11 +191,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(11, 12, 16, 0.95)';
-            navbar.style.boxShadow = '0 2px 10px rgba(111, 66, 193, 0.5)';
+            navbar.style.background = 'rgba(15, 15, 15, 0.95)';
+            navbar.style.boxShadow = '0 2px 10px rgba(0, 196, 255, 0.5)';
         } else {
-            navbar.style.background = 'rgba(11, 12, 16, 0.9)';
-            navbar.style.boxShadow = '0 2px 10px rgba(111, 66, 193, 0.3)';
+            navbar.style.background = 'rgba(15, 15, 15, 0.9)';
+            navbar.style.boxShadow = '0 2px 10px rgba(0, 196, 255, 0.3)';
         }
     });
     
@@ -232,15 +255,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Glowing effect for CTA buttons
-    const ctaButtons = document.querySelectorAll('.cta, .pricing-cta');
+    const ctaButtons = document.querySelectorAll('.cta');
     
     ctaButtons.forEach(button => {
         button.addEventListener('mouseover', () => {
-            button.style.boxShadow = '0 0 25px #00AEEF';
+            button.style.boxShadow = '0 0 25px #00C4FF';
         });
         
         button.addEventListener('mouseout', () => {
-            button.style.boxShadow = '0 0 15px #6F42C1';
+            button.style.boxShadow = '0 0 15px #7B4BFF';
         });
         
         button.addEventListener('click', () => {
@@ -349,6 +372,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 const intensity = Math.floor(Math.random() * 5);
                 cell.classList.add(`intensity-${intensity}`);
                 
+                // Add hover effect
+                cell.addEventListener('mouseover', () => {
+                    cell.style.transform = 'scale(1.2)';
+                    cell.style.boxShadow = '0 0 10px #00C4FF';
+                    cell.style.zIndex = '1';
+                });
+                
+                cell.addEventListener('mouseout', () => {
+                    cell.style.transform = 'scale(1)';
+                    cell.style.boxShadow = 'none';
+                    cell.style.zIndex = '0';
+                });
+                
                 heatmap.appendChild(cell);
             }
         }
@@ -385,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const projectCard = document.createElement('div');
             projectCard.className = 'project-card';
             
-            const daysLeft = Math.ceil((new Date(project.deadline) - new Date()) / (1000 * 60 * 60 * 24));
+            const daysLeft = Math.ceil((new Date(project.deadline) - new Date('2025-05-12')) / (1000 * 60 * 60 * 24));
             
             projectCard.innerHTML = `
                 <h4>${project.name}</h4>
@@ -419,6 +455,18 @@ document.addEventListener('DOMContentLoaded', function() {
         .animate-in {
             opacity: 1;
             transform: translateY(0);
+        }
+        
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+        
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
         }
     `;
     document.head.appendChild(animationStyles);
