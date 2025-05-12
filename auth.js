@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signup-form');
     const loginEmail = document.getElementById('login-email');
     const loginPassword = document.getElementById('login-password');
+    const hunterName = document.getElementById('hunter-name');
     const signupEmail = document.getElementById('signup-email');
     const signupPassword = document.getElementById('signup-password');
     const confirmPassword = document.getElementById('confirm-password');
@@ -149,13 +150,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Sign Up with Email/Password
     signupBtn.addEventListener('click', () => {
+        const name = hunterName.value.trim();
         const email = signupEmail.value.trim();
         const password = signupPassword.value;
         const confirmPwd = confirmPassword.value;
         const rank = hunterRank.value;
         
         // Validation
-        if (!email || !password || !confirmPwd) {
+        if (!email || !password || !confirmPwd || !name) {
             signupError.textContent = 'WARNING: All fields are required';
             return;
         }
@@ -179,22 +181,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Signed up
                 const user = userCredential.user;
                 
-                // Store additional user data in Firestore
-                return db.collection('hunters').doc(user.uid).set({
-                    email: email,
-                    hunterRank: rank,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    level: 1,
-                    xp: 0
+                // Update user profile with display name
+                return user.updateProfile({
+                    displayName: name
                 }).then(() => {
-                    signupError.textContent = '';
-                    showToast('Hunter Registration Complete');
-                    successSound.play();
-                    
-                    // Redirect to mainpage after a delay
-                    setTimeout(() => {
-                        window.location.href = 'mainpage.html';
-                    }, 1500);
+                    // Store additional user data in Firestore
+                    return db.collection('hunters').doc(user.uid).set({
+                        email: email,
+                        displayName: name,
+                        hunterRank: rank,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        level: 1,
+                        xp: 0,
+                        coins: 0
+                    }).then(() => {
+                        signupError.textContent = '';
+                        showToast('Hunter Registration Complete');
+                        successSound.play();
+                        
+                        // Redirect to mainpage after a delay
+                        setTimeout(() => {
+                            window.location.href = 'mainpage.html';
+                        }, 1500);
+                    });
                 });
             })
             .catch(error => {
@@ -230,12 +239,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (isNewUser || isSignup) {
                     // Store additional user data for new users
+                    // Use Google display name if available
+                    const displayName = user.displayName || "Shadow Hunter";
+                    
                     return db.collection('hunters').doc(user.uid).set({
                         email: user.email,
+                        displayName: displayName,
                         hunterRank: 'E', // Default rank for Google sign-ins
                         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                         level: 1,
-                        xp: 0
+                        xp: 0,
+                        coins: 0
                     }).then(() => {
                         showToast('Hunter Registration Complete');
                         successSound.play();
