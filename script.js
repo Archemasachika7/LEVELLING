@@ -1,10 +1,10 @@
 // Wait for DOM to load
 document.addEventListener('DOMContentLoaded', function() {
-    // Particle effect background for hero section
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        createParticles(heroSection);
-    }
+    // Create particles for background
+    createParticles(document.body, 50);
+    
+    // Initialize parallax effect
+    initParallax();
     
     // Demo tabs functionality
     const demoTabs = document.querySelectorAll('.demo-tab');
@@ -123,8 +123,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Create particles for background
-    function createParticles(container) {
-        for (let i = 0; i < 50; i++) {
+    function createParticles(container, count) {
+        for (let i = 0; i < count; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             
@@ -149,16 +149,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Initialize parallax effect
+    function initParallax() {
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const speed = 0.5; // Adjust for more/less effect
+                const yPos = -(scrollY * speed);
+                section.style.backgroundPosition = `50% ${yPos}px`;
+            });
+        });
+    }
+    
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
     
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(10, 10, 10, 0.95)';
-            navbar.style.boxShadow = '0 2px 10px rgba(138, 43, 226, 0.5)';
+            navbar.style.background = 'rgba(11, 12, 16, 0.95)';
+            navbar.style.boxShadow = '0 2px 10px rgba(111, 66, 193, 0.5)';
         } else {
-            navbar.style.background = 'rgba(10, 10, 10, 0.9)';
-            navbar.style.boxShadow = '0 2px 10px rgba(138, 43, 226, 0.3)';
+            navbar.style.background = 'rgba(11, 12, 16, 0.9)';
+            navbar.style.boxShadow = '0 2px 10px rgba(111, 66, 193, 0.3)';
         }
     });
     
@@ -196,23 +210,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Animation for feature cards
-    const featureCards = document.querySelectorAll('.feature-card');
+    // Animation for elements on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('animate-in');
+                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
     
-    featureCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(card);
+    // Observe all sections and cards for animation
+    document.querySelectorAll('section, .flip-card, .testimonial-card').forEach(el => {
+        el.classList.add('animate-element');
+        observer.observe(el);
     });
     
     // Glowing effect for CTA buttons
@@ -220,11 +236,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     ctaButtons.forEach(button => {
         button.addEventListener('mouseover', () => {
-            button.style.boxShadow = '0 0 25px #9a4dff';
+            button.style.boxShadow = '0 0 25px #00AEEF';
         });
         
         button.addEventListener('mouseout', () => {
-            button.style.boxShadow = '0 0 15px #7b2ff7';
+            button.style.boxShadow = '0 0 15px #6F42C1';
         });
         
         button.addEventListener('click', () => {
@@ -360,9 +376,9 @@ document.addEventListener('DOMContentLoaded', function() {
         projectsDemo.className = 'projects-demo';
         
         const projects = [
-            { name: 'Personal Portfolio Website', progress: 85, deadline: '2025-05-20' },
-            { name: 'E-commerce App', progress: 42, deadline: '2025-06-15' },
-            { name: 'Machine Learning Project', progress: 10, deadline: '2025-07-01' }
+            { name: 'Personal Portfolio Website', progress: 85, deadline: '2025-06-15' },
+            { name: 'E-commerce App', progress: 42, deadline: '2025-07-20' },
+            { name: 'Machine Learning Project', progress: 10, deadline: '2025-08-05' }
         ];
         
         projects.forEach(project => {
@@ -390,266 +406,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         projectsPanel.appendChild(projectsDemo);
     }
+    
+    // Add animation styles
+    const animationStyles = document.createElement('style');
+    animationStyles.textContent = `
+        .animate-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    `;
+    document.head.appendChild(animationStyles);
 });
-
-// Add CSS for new JS elements
-document.head.insertAdjacentHTML('beforeend', `
-<style>
-    /* Particle animation */
-    .particle {
-        position: absolute;
-        background-color: rgba(154, 77, 255, 0.6);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 1;
-        animation: float linear infinite;
-    }
-    
-    @keyframes float {
-        0% {
-            transform: translateY(0) translateX(0);
-            opacity: 0;
-        }
-        10% {
-            opacity: 0.8;
-        }
-        90% {
-            opacity: 0.5;
-        }
-        100% {
-            transform: translateY(-100vh) translateX(20px);
-            opacity: 0;
-        }
-    }
-    
-    /* Level notification */
-    .level-notification {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background-color: #7b2ff7;
-        color: white;
-        padding: 1rem;
-        border-radius: 10px;
-        z-index: 1000;
-        transform: translateX(150%);
-        transition: transform 0.3s ease;
-        box-shadow: 0 0 15px rgba(123, 47, 247, 0.7);
-    }
-    
-    .level-notification.show {
-        transform: translateX(0);
-    }
-    
-    /* Magic effect */
-    .magic-effect {
-        position: absolute;
-        border-radius: 5px;
-        pointer-events: none;
-        z-index: 999;
-        background: radial-gradient(circle, rgba(154, 77, 255, 0.5) 0%, rgba(154, 77, 255, 0) 70%);
-        animation: magic-pulse 1s ease-out;
-    }
-    
-    @keyframes magic-pulse {
-        0% {
-            transform: scale(0.95);
-            opacity: 0.7;
-        }
-        50% {
-            transform: scale(1.05);
-            opacity: 0.3;
-        }
-        100% {
-            transform: scale(1.2);
-            opacity: 0;
-        }
-    }
-    
-    /* Button pulse animation */
-    .pulse {
-        animation: button-pulse 1s;
-    }
-    
-    @keyframes button-pulse {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.05);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-    
-    /* Chat interface */
-    .chat-interface {
-        display: flex;
-        flex-direction: column;
-        height: 300px;
-        background-color: #222;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    
-    .chat-messages {
-        flex: 1;
-        padding: 1rem;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .message {
-        max-width: 80%;
-        padding: 0.8rem 1rem;
-        margin-bottom: 0.8rem;
-        border-radius: 10px;
-    }
-    
-    .message.user {
-        align-self: flex-end;
-        background-color: #7b2ff7;
-        color: white;
-        border-radius: 10px 10px 0 10px;
-    }
-    
-    .message.bot {
-        align-self: flex-start;
-        background-color: #333;
-        color: #ddd;
-        border-radius: 10px 10px 10px 0;
-    }
-    
-    .chat-input {
-        display: flex;
-        padding: 0.8rem;
-        background-color: #1a1a1a;
-    }
-    
-    .chat-input input {
-        flex: 1;
-        padding: 0.8rem;
-        border: none;
-        background-color: #333;
-        color: #ddd;
-        border-radius: 5px 0 0 5px;
-    }
-    
-    .chat-input button {
-        padding: 0.8rem 1.2rem;
-        background-color: #7b2ff7;
-        color: white;
-        border: none;
-        border-radius: 0 5px 5px 0;
-        cursor: pointer;
-    }
-    
-    /* Heatmap */
-    .heatmap-demo {
-        margin-top: 1.5rem;
-    }
-    
-    .heatmap-demo h4 {
-        margin-bottom: 1rem;
-        color: #d8b4fe;
-    }
-    
-    .heatmap-grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: repeat(7, 1fr);
-        gap: 4px;
-        margin-bottom: 1rem;
-    }
-    
-    .heatmap-cell {
-        width: 100%;
-        aspect-ratio: 1;
-        border-radius: 2px;
-    }
-    
-    .intensity-0 {
-        background-color: #1a1a1a;
-    }
-    
-    .intensity-1 {
-        background-color: #4b2b7f;
-    }
-    
-    .intensity-2 {
-        background-color: #5d3a9e;
-    }
-    
-    .intensity-3 {
-        background-color: #7b2ff7;
-    }
-    
-    .intensity-4 {
-        background-color: #9a4dff;
-    }
-    
-    .heatmap-legend {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-    
-    .legend-item {
-        display: flex;
-        align-items: center;
-        font-size: 0.8rem;
-        color: #aaa;
-    }
-    
-    .legend-color {
-        width: 12px;
-        height: 12px;
-        margin-right: 5px;
-        border-radius: 2px;
-    }
-    
-    /* Projects demo */
-    .projects-demo {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 1.5rem;
-    }
-    
-    .project-card {
-        background-color: #222;
-        border-radius: 10px;
-        padding: 1.5rem;
-    }
-    
-    .project-card h4 {
-        color: #d8b4fe;
-        margin-bottom: 1rem;
-    }
-    
-    .project-progress {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .project-progress .progress-bar {
-        flex: 1;
-    }
-    
-    .project-details {
-        display: flex;
-        justify-content: space-between;
-        color: #aaa;
-        font-size: 0.9rem;
-    }
-    
-    .days-left {
-        color: #9a4dff;
-    }
-</style>
-`);
